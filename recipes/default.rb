@@ -17,15 +17,13 @@
 # limitations under the License.
 #
 
-include_recipe "build-essential"
-include_recipe "subversion::client"
-include_recipe "python"
-include_recipe "omniorb"
-
-install_path = "/usr/local/bin/rtm-config"
+include_recipe 'build-essential'
+include_recipe 'subversion::client'
+include_recipe 'python'
+include_recipe 'omniorb'
 
 pkgs = value_for_platform_family(
-  ["debian"] => %w{libtool uuid-dev libboost-dev libboost-system-dev libboost-filesystem-dev libyaml-dev}
+  ['debian'] => %w(libtool uuid-dev libboost-dev libboost-system-dev libboost-filesystem-dev libyaml-dev)
 )
 
 pkgs.each do |pkg|
@@ -34,9 +32,9 @@ pkgs.each do |pkg|
   end
 end
 
-python_pip "PyYaml"
+python_pip 'PyYaml'
 
-bash "compile_openrtm-aist" do
+bash 'compile_openrtm-aist' do
   cwd "#{Chef::Config['file_cache_path']}/OpenRTM-aist"
   code <<-EOH
       ./build/autogen
@@ -47,10 +45,10 @@ bash "compile_openrtm-aist" do
   action :nothing
 end
 
-subversion "OpenRTM-aist" do
-  repository "http://svn.openrtm.org/OpenRTM-aist/branches/RELENG_1_1/OpenRTM-aist/"
-  revision "HEAD"
+subversion 'OpenRTM-aist' do
+  repository 'http://svn.openrtm.org/OpenRTM-aist/branches/RELENG_1_1/OpenRTM-aist/'
+  revision 'HEAD'
   destination "#{Chef::Config[:file_cache_path]}/OpenRTM-aist"
   action :sync
-  notifies :run, "bash[compile_openrtm-aist]", :immediately
+  notifies :run, 'bash[compile_openrtm-aist]', :immediately
 end
