@@ -4,6 +4,8 @@ OpenRTM-aist Cookbook
 This cookbook will install OpenRTM-aist a middleware framework for
 robotics.
 
+[![Build Status](http://ci.devrt.tk/job/chef-openrtm-aist/badge/icon)](http://ci.devrt.tk/job/chef-openrtm-aist/)
+
 Requirements
 ------------
 
